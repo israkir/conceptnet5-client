@@ -1,0 +1,10 @@
+*.pyc
+*.py~
+tmp/
+.DS_Store
+.vimrc
+*.swp
+*.swo
+build/
+dist/
+conceptnet5_client.egg-info/
