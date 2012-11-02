@@ -1,8 +1,6 @@
 from conceptnet5_client.utils.debug import print_debug
-from conceptnet5_client.lookup import LookUp
-from conceptnet5_client.search import Search
-from conceptnet5_client.result import Result
-from conceptnet5_client.association import Association
+from conceptnet5_client.api import LookUp, Search, Association
+from conceptnet5_client.utils.result import Result
 
 def demonstrate_lookup(concept):
     print 'Demonstrating LookUp concept API'

@@ -3,6 +3,7 @@ import urllib
 
 from conceptnet5_client.utils.debug import print_debug
 from conceptnet5_client.utils.http import make_http_request
+from conceptnet5_client.utils.util import is_arg_valid
 
 try: 
     import simplejson as json
@@ -66,15 +67,6 @@ SUPPORTED_SEARCH_ARGS = ['id', 'uri', 'rel', 'start', 'end', 'context', 'dataset
     'license', 'nodes', 'startLemmas', 'endLemmas', 'relLemmas', 'text',
     'surfaceText', 'minWeight', 'limit', 'offset', 'features', 'filter']
 
-    
-
-def is_arg_valid(arg, arg_list):
-    '''
-    Check whether the passed argument during init is supported
-    by ConceptNet5 API or not.
-    '''
-    return arg in arg_list
-    
     
     
 class LookUp:

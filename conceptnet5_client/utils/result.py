@@ -1,6 +1,7 @@
 import ast
 
 from conceptnet5_client.utils.debug import print_debug
+from conceptnet5_client.utils.util import is_arg_valid
 
 try: 
     import simplejson as json
