@@ -5,12 +5,6 @@ from conceptnet5_client.utils.debug import print_debug
 from conceptnet5_client.utils.http import make_http_request
 from conceptnet5_client.utils.util import is_arg_valid
 
-try: 
-    import simplejson as json
-except ImportError: 
-    import json
-
-    
 
 BASE_LOOKUP_URL = 'http://conceptnet5.media.mit.edu/data/5.1'
 BASE_SEARCH_URL = 'http://conceptnet5.media.mit.edu/data/5.1/search'
@@ -84,7 +78,7 @@ class LookUp:
         self.encoded_query_args = urllib.urlencode(query_args)
         self.lang = lang
     
-    
+
     def search_concept(self, concept):
         '''
         Constructs the search url for this instance of lookup object with specified query args 
@@ -95,8 +89,8 @@ class LookUp:
         concept = concept.replace(' ', '_')
         url = ''.join(['%s/c/%s/%s?' % (BASE_LOOKUP_URL, self.lang, concept)]) + self.encoded_query_args
         print_debug(url, 'url')
-        data = make_http_request(url)
-        return json.load(data)
+        json_data = make_http_request(url)
+        return json_data
 
 
     def search_source(self, source_uri = None):
@@ -110,8 +104,8 @@ class LookUp:
         if source_uri:
             url = ''.join(['%s%s' % (BASE_LOOKUP_URL, source_uri)])
             print url
-            data = make_http_request(url)
-            return json.load(data)
+            json_data = make_http_request(url)
+            return json_data
         else:
             print_debug('You should pass argument \'source\'.', 'ArgError')
             sys.exit()
@@ -140,8 +134,8 @@ class Search:
         '''
         url = ''.join(['%s%s' % (BASE_SEARCH_URL, '?')]) + self.encoded_query_args
         print_debug(url, 'url')
-        data = make_http_request(url)
-        return json.load(data)
+        json_data = make_http_request(url)
+        return json_data
 
         
 
@@ -169,8 +163,8 @@ class Association:
         '''
         url = ''.join(['%s/c/%s/%s?' % (BASE_ASSOCIATION_URL, self.lang, concept)]) + self.encoded_query_args
         print_debug(url, 'url')
-        data = make_http_request(url)
-        return json.load(data)
+        json_data = make_http_request(url)
+        return json_data
 
 
     def get_similar_concepts_by_term_list(self, term_list):
@@ -182,5 +176,7 @@ class Association:
         terms = ','.join(term_list)
         url = ''.join(['%s/list/%s/%s' % (BASE_ASSOCIATION_URL, self.lang, terms)]) + self.encoded_query_args
         print_debug(url, 'url')
-        data = make_http_request(url)
-        return json.load(data)
+        json_data = make_http_request(url)
+        return json_data
+
+

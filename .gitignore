@@ -8,3 +8,4 @@ tmp/
 build/
 dist/
 conceptnet5_client.egg-info/
+cached_data/

@@ -17,8 +17,7 @@ def demonstrate_lookup(concept):
     lookup = LookUp(offset=1, limit=1)
     data = lookup.search_concept(concept)
     r = Result(data)
-    edges = r.parse_all_edges(clean_self_ref = True)
-    [edge.print_edge() for edge in edges]
+    r.print_raw_result()
     print
 
 
@@ -27,7 +26,7 @@ def demonstrate_source_lookup(source_uri):
     lookup = LookUp()
     data = lookup.search_source(source_uri)
     r = Result(data)
-    r.print_raw_results()
+    r.print_raw_result()
     print
 
 
@@ -36,13 +35,13 @@ def demonstrate_search():
     s = Search(rel='/c/en/be_often_compare_to')
     data = s.search()
     r = Result(data)
-    r.print_raw_results()
+    r.print_raw_result()
     print
     
     s = Search(text='mariah carey', surfaceText='dion', something='anything')
     data = s.search()
     r = Result(data)
-    r.print_raw_results()
+    r.print_raw_result()
     print
 
 
@@ -51,15 +50,18 @@ def demonstrate_association():
     a = Association(filter='/c/en/dog', limit=1)
     data = a.get_similar_concepts('cat')
     r = Result(data)
-    r.print_raw_results()
+    r.print_raw_result()
     print
     
     a = Association()
     data = a.get_similar_concepts_by_term_list(['toast', 'cereal', 'juice', 'egg'])
     r = Result(data)
-    r.print_raw_results()
+    r.print_raw_result()
+    print
+    r.parse_all_edges()
     print
 
+    
 def main():
     demonstrate_lookup('see movie')
     demonstrate_search()

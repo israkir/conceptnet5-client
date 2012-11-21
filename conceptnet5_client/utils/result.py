@@ -17,9 +17,9 @@ class Result:
     '''
     This class implements the necessary methods for parsing a query result.
     '''
-    def __init__(self, dict_data):
+    def __init__(self, json_data):
         result = {}
-        for key, value in dict_data.iteritems():
+        for key, value in json_data.items():
             if is_arg_valid(key, SUPPORTED_KEYS):
                 result[key] = value
                 # print_debug('%s : %s' % (key, value), 'arg')
@@ -28,7 +28,7 @@ class Result:
         self.result = result
 
 
-    def print_raw_results(self):
+    def print_raw_result(self):
         '''
         Prints the result of the query in key = value manner without any processing.
         '''
@@ -46,6 +46,12 @@ class Result:
         in the returned list.
         '''
         edges = []
+        
+        if not 'edges' in self.result:
+            print_debug('This result does not have any edge! Printing raw result...', 'ResultTypeError')
+            self.print_raw_result()
+            return
+        
         for edge_str in self.result['edges']:
             e = Edge(edge_str)
             if clean_self_ref:
