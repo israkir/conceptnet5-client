@@ -11,4 +11,5 @@ setup(
     license = 'GPLv3',
     url = 'https://github.com/israkir/conceptnet5-client',
     packages = find_packages(),
+    scripts = ['conceptnet5_client/bin/conceptnet-make.py'],
 )

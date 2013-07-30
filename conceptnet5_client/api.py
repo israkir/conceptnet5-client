@@ -6,63 +6,9 @@ from conceptnet5_client.utils.http import make_http_request
 from conceptnet5_client.utils.util import is_arg_valid
 
 
-BASE_LOOKUP_URL = 'http://conceptnet5.media.mit.edu/data/5.1'
-BASE_SEARCH_URL = 'http://conceptnet5.media.mit.edu/data/5.1/search'
-BASE_ASSOCIATION_URL = 'http://conceptnet5.media.mit.edu/data/5.1/assoc'
-
-# This is the supported query arguments for LookUp API
-# :param offset: skip the specified amount of first results
-# :type offset: integer
-# :param limit: change the number of results from the default of 50
-# :type limit: integer
-# :param filter: If 'core', only get edges from the ConceptNet 5 Core (not from ShareAlike resources),
-#                if 'core-assetions', search for edges by default, and there can be many edges 
-#                representing the same assertion.
-# :type filter: Either 'core' or 'core-assertions'
-SUPPORTED_LOOKUP_ARGS = ['offset', 'filter', 'limit']
+from conceptnet5_client.conf import settings
 
 
-# This is the supported query arguments for Association API
-# :param limit: change the number of results from the default of 50
-# :type limit: integer
-# :param filter: return only results that start with the given URI. For example, 
-#                filter=/c/en returns results in English.
-# :type filter: a uri, e.g. '/c/en/cat' (Different than lookup API!)
-SUPPORTED_ASSOCIATION_ARGS = ['limit', 'filter']
-
-
-# Supported arguments for Search API
-# :param {id, uri, rel, start, end, context, dataset, license}: giving a ConceptNet URI for any of these 
-#       parameters will return edges whose corresponding fields start with the given path
-# :type {id, uri, rel, start, end, context, dataset, license}: uri
-# :param nodes: returns edges whose rel, start, or end start with the given URI
-# :type nodes: uri
-# :param {startLemmas, endLemmas, relLemmas}: returns edges containing the given lemmatized word anywhere 
-#       in their start, end, or rel respectively
-# :type {startLemmas, endLemmas, relLemmas}: word
-# :param text: matches any of startLemmas, endLemmas, or relLemmas 
-# :type text: word
-# :param surfaceText: matches edges with the given word in their surface text. The word is not lemmatized, 
-#       but it is a case-insensitive match
-# :type surfaceText: word
-# :param minWeight: filters for edges whose weight is at least weight
-# :type minWeight: float
-# :param limit: change the number of results from the default of 50
-# :type limit: integer
-# :param offset: skip the specified amount of first results
-# :type offset: integer 
-# :param features: Takes in a feature string (an assertion with one open slot), and returns edges having 
-#       exactly that string as one of their features
-# :type features: string of uri
-# :param filter: If 'core', only get edges from the ConceptNet 5 Core (not from ShareAlike resources),
-#       if 'core-assetions', search for edges by default, and there can be many edges representing the same assertion.
-# :type filter: Either 'core' or 'core-assertions'
-SUPPORTED_SEARCH_ARGS = ['id', 'uri', 'rel', 'start', 'end', 'context', 'dataset', 
-    'license', 'nodes', 'startLemmas', 'endLemmas', 'relLemmas', 'text',
-    'surfaceText', 'minWeight', 'limit', 'offset', 'features', 'filter']
-
-    
-    
 class LookUp:
     '''
     This class implements the methods for querying about a concept or sources.
@@ -70,7 +16,7 @@ class LookUp:
     def __init__(self, lang = 'en', **kwargs):
         query_args = {}
         for key, value in kwargs.iteritems():
-            if is_arg_valid(key, SUPPORTED_LOOKUP_ARGS):
+            if is_arg_valid(key, settings.SUPPORTED_LOOKUP_ARGS):
                 query_args[key] = value
                 # print_debug('%s : %s' % (key, value), 'arg')
             else:
@@ -87,7 +33,7 @@ class LookUp:
         :param concept: a concept word or phrase, e.g. 'toast', 'see movie' etc.
         '''
         concept = concept.replace(' ', '_')
-        url = ''.join(['%s/c/%s/%s?' % (BASE_LOOKUP_URL, self.lang, concept)]) + self.encoded_query_args
+        url = ''.join(['%s/c/%s/%s?' % (settings.BASE_LOOKUP_URL, self.lang, concept)]) + self.encoded_query_args
         print_debug(url, 'url')
         json_data = make_http_request(url)
         return json_data
@@ -102,7 +48,7 @@ class LookUp:
         '/s/wordnet/3.0', '/s/rule/sum_edges' etc.
         '''
         if source_uri:
-            url = ''.join(['%s%s' % (BASE_LOOKUP_URL, source_uri)])
+            url = ''.join(['%s%s' % (settings.BASE_LOOKUP_URL, source_uri)])
             print url
             json_data = make_http_request(url)
             return json_data
@@ -119,7 +65,7 @@ class Search:
     def __init__(self, **kwargs):
         query_args = {}
         for key, value in kwargs.iteritems():
-            if is_arg_valid(key, SUPPORTED_SEARCH_ARGS):
+            if is_arg_valid(key, settings.SUPPORTED_SEARCH_ARGS):
                 query_args[key] = value
                 # print_debug('%s : %s' % (key, value), 'arg')
             else:
@@ -132,7 +78,7 @@ class Search:
         Constructs the search url for this instance of search object with specified query args 
         and returns the result of the request in json format.
         '''
-        url = ''.join(['%s%s' % (BASE_SEARCH_URL, '?')]) + self.encoded_query_args
+        url = ''.join(['%s%s' % (settings.BASE_SEARCH_URL, '?')]) + self.encoded_query_args
         print_debug(url, 'url')
         json_data = make_http_request(url)
         return json_data
@@ -146,7 +92,7 @@ class Association:
     def __init__(self, lang = 'en', **kwargs):
         query_args = {}
         for key, value in kwargs.iteritems():
-            if is_arg_valid(key, SUPPORTED_ASSOCIATION_ARGS):
+            if is_arg_valid(key, settings.SUPPORTED_ASSOCIATION_ARGS):
                 query_args[key] = value
                 # print_debug('%s : %s' % (key, value), 'arg')
             else:
@@ -161,7 +107,7 @@ class Association:
 
         :param concept: a concept word or phrase, e.g. 'toast', 'see movie' etc.
         '''
-        url = ''.join(['%s/c/%s/%s?' % (BASE_ASSOCIATION_URL, self.lang, concept)]) + self.encoded_query_args
+        url = ''.join(['%s/c/%s/%s?' % (settings.BASE_ASSOCIATION_URL, self.lang, concept)]) + self.encoded_query_args
         print_debug(url, 'url')
         json_data = make_http_request(url)
         return json_data
@@ -174,7 +120,7 @@ class Association:
         :param term_list: a list of concepts.
         '''
         terms = ','.join(term_list)
-        url = ''.join(['%s/list/%s/%s' % (BASE_ASSOCIATION_URL, self.lang, terms)]) + self.encoded_query_args
+        url = ''.join(['%s/list/%s/%s' % (settings.BASE_ASSOCIATION_URL, self.lang, terms)]) + self.encoded_query_args
         print_debug(url, 'url')
         json_data = make_http_request(url)
         return json_data

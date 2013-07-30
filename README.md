@@ -1,13 +1,24 @@
 Description
 ===========
 
-This is a Python programming interface for [ConceptNet5 Web API](http://conceptnet5.media.mit.edu/). The general documentation about ConceptNet5 project can be found in [here](https://github.com/commonsense/conceptnet5/wiki).
+This is a Python programming interface and an inference engine for [ConceptNet5 Web API](http://conceptnet5.media.mit.edu/). It supports investigating multiple concept relationships as a graph walk. 
+
+The general documentation about ConceptNet5 project can be found in [here](https://github.com/commonsense/conceptnet5/wiki).
 
 Instructions
 ============
 Install:
     
     $ sudo python setup.py install
+
+Create project:
+
+    $ conceptnet-make.py -s [project_path]
+    
+    e.g.
+
+    $ conceptnet-make.py -s /home/user/conceptnet_project
+
 
 LookUp API
 ----------
