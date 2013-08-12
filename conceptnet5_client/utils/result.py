@@ -36,6 +36,13 @@ class Result:
             print_debug('%s = %s' % (key, value))
 
 
+    def get_num_found(self):
+        '''
+        Returns the number of edges returned in query result.
+        '''
+        return self.result['numFound']
+
+
     def parse_all_edges(self, clean_self_ref = False):
         '''
         Parses the edges for this result object, initiates an edge object for each

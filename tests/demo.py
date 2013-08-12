@@ -1,6 +1,8 @@
 from conceptnet5_client.utils.debug import print_debug
-from conceptnet5_client.api import LookUp, Search, Association
+from conceptnet5_client.web.api import LookUp, Search, Association
 from conceptnet5_client.utils.result import Result
+from conceptnet5_client.inference.path import Path
+
 
 def demonstrate_lookup(concept):
     print 'Demonstrating LookUp concept API'
@@ -61,14 +63,22 @@ def demonstrate_association():
     r.parse_all_edges()
     print
 
+
+def demonstrate_inference():
+    concepts = ['/c/en/cat', '/c/en/animal', '/c/en/living']
+    relations = ['/r/IsA'] 
+    p = Path(concepts, relations)
+    print p.does_exist(print_where_breaks=True)
+
     
 def main():
-    demonstrate_lookup('see movie')
-    demonstrate_search()
-    demonstrate_association()
-    demonstrate_source_lookup('/s/contributor/omcs/rspeer')
-    demonstrate_source_lookup('/s/rule/sum_edges')
-    demonstrate_source_lookup('/s/wordnet/3.0')
+    #demonstrate_lookup('see movie')
+    #demonstrate_search()
+    #demonstrate_association()
+    #demonstrate_source_lookup('/s/contributor/omcs/rspeer')
+    #demonstrate_source_lookup('/s/rule/sum_edges')
+    #demonstrate_source_lookup('/s/wordnet/3.0')
+    demonstrate_inference()
 
 
 if __name__ == '__main__':
