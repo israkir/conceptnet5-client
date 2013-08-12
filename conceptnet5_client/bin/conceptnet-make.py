@@ -17,8 +17,6 @@ def print_info(parser):
 
 def init_parser():
     parser = OptionParser()
-        #usage = "conceptnet-make.py [-s] [projectname]", 
-        #version = "conceptnet-make.py %s" % VERSION)
     return parser
 
 
@@ -28,19 +26,17 @@ def add_options(parser):
         '--startproject', 
         dest = 'projectname',
         default = 'myproject',
-        help = 'creates a new conceptnet project with your custom settings.')
+        help = 'Creates a new ConceptNet project.')
     return parser
 
 
 def create_project_folder(projectname):
     try:
-        #project_dir_path = '/'.join([os.getcwd(), projectname])
-        project_dir_path = '/'.join([projectname])
-        os.makedirs(project_dir_path)
+        os.makedirs(projectname)
     except OSError as exception:
         if exception.errno != errno.EEXIST:
             raise
-    return project_dir_path
+    return projectname
 
 
 def create_settings(path):
@@ -50,11 +46,9 @@ def create_settings(path):
 def execute(parser, opts, args):
     print 'args: %s' % args
     print 'opts: %s' % opts
-    #if len(args) < 2:
-    #    parser.error('Incorrect number of arguments.')
+    
     if opts.projectname:
         path = create_project_folder(opts.projectname)
-        print 'project_dir_path: %s' % path
         create_settings(path)
     else:
         print_info(parser)

@@ -13,11 +13,16 @@ Install:
 
 Create project:
 
-    $ conceptnet-make.py -s [project_path]
+    $ conceptnet-make.py
     
-    e.g.
+Command above will create a new folder 'myproject' under your current directory. In order to specify a project path/name, run:
 
     $ conceptnet-make.py -s /home/user/conceptnet_project
+
+Web API
+=======
+
+There are 3 types of main API in ConceptNet which are supported by this package.
 
 
 LookUp API
