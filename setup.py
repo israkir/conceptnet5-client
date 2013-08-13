@@ -10,6 +10,6 @@ setup(
     description = ('A Python programming interface and inference engine for ConceptNet5 Web API'),
     license = 'GPLv3',
     url = 'https://github.com/israkir/conceptnet5-client',
-    packages = find_packages(),
+    packages = find_packages(exclude=['tests']),
     scripts = ['conceptnet5_client/bin/conceptnet-make.py'],
 )
