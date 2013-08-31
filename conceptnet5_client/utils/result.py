@@ -106,7 +106,7 @@ class Edge:
         '''
         Prints the normalized edge data with start node, rel, end node.
         '''
-        print_debug('%s %s %s' % (self.start, self.rel, self.end))
+        print_debug('(%s -> %s -> %s)' % (self.start, self.rel, self.end))
 
     
     def print_all_attrs(self):
@@ -115,3 +115,14 @@ class Edge:
         '''
         attrs = vars(self)
         print_debug('\n'.join('%s: %s' % item for item in attrs.items()))
+
+
+class Assertion:
+    def __init__(self, start, relation, end):
+        self.start = start
+        self.relation = relation
+        self.end = end
+
+
+    def print_assertion(self):
+        print '(%s -> %s -> %s)' % (self.start, self.relation, self.end)

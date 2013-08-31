@@ -66,9 +66,12 @@ def demonstrate_association():
 
 def demonstrate_inference():
     concepts = ['/c/en/cat', '/c/en/animal', '/c/en/living']
-    relations = ['/r/IsA'] 
+    relations = ['/r/IsA', '/r/AtLocation'] 
     p = Path(concepts, relations)
-    print p.does_exist(print_where_breaks=True)
+    #print p.does_exist(print_where_breaks=True)
+    #for a in p.assertions:
+    #    a.print_assertion()
+    print p.get_all_tuple_of_concepts()
 
     
 def main():

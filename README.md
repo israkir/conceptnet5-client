@@ -5,6 +5,12 @@ This is a Python programming interface and an inference engine for [ConceptNet5 
 
 The general documentation about ConceptNet5 project can be found in [here](https://github.com/commonsense/conceptnet5/wiki).
 
+
+Dependencies
+============
+
+* `networkx` package (>=1.7) in order to manipulate query results using graph functions.
+
 Instructions
 ============
 Install:
