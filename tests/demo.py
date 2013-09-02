@@ -1,6 +1,9 @@
+import sys
+
 from conceptnet5_client.utils.debug import print_debug
 from conceptnet5_client.web.api import LookUp, Search, Association
 from conceptnet5_client.utils.result import Result
+from conceptnet5_client.utils.pprint import pprint_paths
 from conceptnet5_client.inference.path import Path
 
 
@@ -66,20 +69,14 @@ def demonstrate_association():
 
 def demonstrate_inference():
     concepts = ['/c/en/cat', '/c/en/animal', '/c/en/living']
-    relations = ['/r/IsA', '/r/HasProperty', '/r/HasProperty'] 
+    relations = ['/r/IsA', '/r/HasProperty'] 
     p = Path(concepts, relations)
     #print p.does_exist(print_where_breaks=True)
     #for a in p.assertions:
     #    a.print_assertion()
     concepts_tuples = p.get_all_tuple_of_concepts()
-    for concept_tuple in concepts_tuples:
-        for index, elem in enumerate(concept_tuple):
-            if index == len(relations):
-                print '%s' % (elem), 
-            else:
-                print '%s -- %s -- ' % (elem, relations[index]), 
-        print
-
+    pprint_paths(sys.stdout, concepts_tuples) 
+    
     
 def main():
     #demonstrate_lookup('see movie')
