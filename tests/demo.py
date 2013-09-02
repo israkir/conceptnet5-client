@@ -67,16 +67,24 @@ def demonstrate_association():
     print
 
 
-def demonstrate_inference():
+def demonstrate_concepts_tuples_by_relations():
     concepts = ['/c/en/cat', '/c/en/animal', '/c/en/living']
-    relations = ['/r/IsA', '/r/HasProperty'] 
+    relations = ['/r/IsA', '/r/HasProperty', '/r/HasProperty'] 
     p = Path(concepts, relations)
-    #print p.does_exist(print_where_breaks=True)
-    #for a in p.assertions:
-    #    a.print_assertion()
     concepts_tuples = p.get_all_tuple_of_concepts()
     pprint_paths(sys.stdout, concepts_tuples) 
-    
+
+
+def demonstrate_path_existence_check():
+    concepts = ['/c/en/thunder', '/c/en/noise', '/c/en/sound', '/c/en/loud']
+    relations = ['/r/IsA', '/r/HasProperty', '/r/HasProperty'] 
+    p = Path(concepts, relations)
+    p.print_path()  
+    print 'Asking path existence...'
+    exist = p.does_exist(print_where_breaks=True)
+    if exist:
+        print 'Path exist'
+
     
 def main():
     #demonstrate_lookup('see movie')
@@ -85,8 +93,9 @@ def main():
     #demonstrate_source_lookup('/s/contributor/omcs/rspeer')
     #demonstrate_source_lookup('/s/rule/sum_edges')
     #demonstrate_source_lookup('/s/wordnet/3.0')
-    demonstrate_inference()
 
+    demonstrate_concepts_tuples_by_relations()
+    demonstrate_path_existence_check()
 
 if __name__ == '__main__':
     main()
