@@ -9,3 +9,4 @@ build/
 dist/
 conceptnet5_client.egg-info/
 tests/cached_data/
+cached_data/
