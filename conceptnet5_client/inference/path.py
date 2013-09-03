@@ -24,9 +24,9 @@ class Path:
         return assertions
 
 
-    def get_all_tuple_of_concepts(self):
+    def get_all_tuples_of_concepts(self):
         '''
-        Returns the tuple of concepts connected by specified relations in the path.
+        Returns list of tuples of concepts connected by 'self.relations' sequence in the path.
         '''
         graph = nx.DiGraph()
 
@@ -71,6 +71,38 @@ class Path:
     
         return concepts_tuples
 
+    
+    def get_all_tuples_of_relations(self):
+        '''
+        Returns list of tuples of relations which connects 'self.concepts' sequence in the path.
+        '''
+        relations_tuples = []
+        
+        for index, (concept1, concept2) in enumerate(pairwise(self.concepts)):
+            search = Search(start=concept1, end=concept2)
+            data = search.search()
+            result = Result(data)
+            if result.get_num_found() > 0:
+                edges = result.parse_all_edges()
+                if index == 0:
+                    for e in edges:
+                        if not [e.rel] in relations_tuples:
+                            relations_tuples.append([e.rel])
+                else:
+                    for relation_tuple in relations_tuples:
+                        if len(relation_tuple) == index:
+                            for e in edges:
+                                relation_tuple_copy = copy.deepcopy(relation_tuple)
+                                relation_tuple_copy.append(e.rel)
+                                if not relation_tuple_copy in relations_tuples:
+                                    relations_tuples.append(relation_tuple_copy)
+                            
+        for relation_tuple in relations_tuples:
+            if len(relation_tuple) != len(self.concepts)-1:
+                relations_tuples.remove(relation_tuple)
+
+        return relations_tuples
+
 
     def does_exist(self, print_where_breaks=False):
         '''
@@ -82,7 +114,6 @@ class Path:
             search = Search(start=assertion.start, rel=assertion.relation, end=assertion.end, limit=1000)
             data = search.search()
             result = Result(data)
-            print 'result: %s' % result.get_edges()
             if result.get_num_found() == 0:
                 if print_where_breaks == True:
                     print 'Assertion breaking the path: [ %s --> (%s) --> %s) ]' % (

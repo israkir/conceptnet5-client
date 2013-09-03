@@ -30,7 +30,7 @@ def cache(func):
         for path, dirs, files in os.walk(CACHE_DIR):
             for filename in files:
                 if filename == cache_key:
-                    print 'Cache found for the url: %s' % args[0]
+                    print 'Cache found: %s' % args[0]
                     fullpath = os.path.join(CACHE_DIR, filename)
                     data = open(fullpath, 'r').read()
                     return json.loads(data)

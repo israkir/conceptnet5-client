@@ -71,8 +71,17 @@ def demonstrate_concepts_tuples_by_relations():
     concepts = ['/c/en/cat', '/c/en/animal', '/c/en/living']
     relations = ['/r/IsA', '/r/HasProperty', '/r/HasProperty'] 
     p = Path(concepts, relations)
-    concepts_tuples = p.get_all_tuple_of_concepts()
+    concepts_tuples = p.get_all_tuples_of_concepts()
     pprint_paths(sys.stdout, concepts_tuples) 
+
+
+def demonstrate_relations_tuples_by_concepts():
+    concepts = ['/c/en/person', '/c/en/human', '/c/en/animal']
+    relations = ['/r/IsA', '/r/HasProperty', '/r/HasProperty'] 
+    p = Path(concepts, relations)
+    relations_tuples = p.get_all_tuples_of_relations()
+    print relations_tuples
+    #pprint_paths(sys.stdout, relations_tuples) 
 
 
 def demonstrate_path_existence_check():
@@ -94,8 +103,9 @@ def main():
     #demonstrate_source_lookup('/s/rule/sum_edges')
     #demonstrate_source_lookup('/s/wordnet/3.0')
 
-    demonstrate_concepts_tuples_by_relations()
-    demonstrate_path_existence_check()
+    #demonstrate_concepts_tuples_by_relations()
+    demonstrate_relations_tuples_by_concepts()
+    #demonstrate_path_existence_check()
 
 if __name__ == '__main__':
     main()
