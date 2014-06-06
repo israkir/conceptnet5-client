@@ -69,24 +69,29 @@ def demonstrate_association():
 
 def demonstrate_concepts_tuples_by_relations():
     concepts = ['/c/en/cat', '/c/en/animal', '/c/en/living']
-    relations = ['/r/IsA', '/r/HasProperty', '/r/HasProperty'] 
+    #relations = ['/r/IsA', '/r/HasProperty', '/r/AtLocation', '/r/LocatedNear'] 
+    #relations = ['/r/HasPrerequisite', '/r/HasSubevent'] 
+    #relations = ['/r/HasPrerequisite', '/r/HasFirstSubevent'] 
+    relations = ['/r/ReceivesAction', '/r/HasProperty'] 
     p = Path(concepts, relations)
     concepts_tuples = p.get_all_tuples_of_concepts()
     pprint_paths(sys.stdout, concepts_tuples) 
 
 
 def demonstrate_relations_tuples_by_concepts():
-    concepts = ['/c/en/person', '/c/en/human', '/c/en/animal']
-    relations = ['/r/IsA', '/r/HasProperty', '/r/HasProperty'] 
+    concepts = ['/c/en/person', '/c/en/human', '/c/en/animal', '/c/en/creature']
+    relations = []
     p = Path(concepts, relations)
     relations_tuples = p.get_all_tuples_of_relations()
-    print relations_tuples
+    for t in relations_tuples:
+        print t
     #pprint_paths(sys.stdout, relations_tuples) 
 
 
 def demonstrate_path_existence_check():
-    concepts = ['/c/en/thunder', '/c/en/noise', '/c/en/sound', '/c/en/loud']
-    relations = ['/r/IsA', '/r/HasProperty', '/r/HasProperty'] 
+    concepts = ['/c/en/thunder', '/c/en/noise', '/c/en/loud']
+    #concepts = ['/c/en/thunder', '/c/en/noise', '/c/en/sound', '/c/en/loud']
+    relations = ['/r/IsA', '/r/HasProperty'] 
     p = Path(concepts, relations)
     p.print_path()  
     print 'Asking path existence...'
@@ -103,8 +108,8 @@ def main():
     #demonstrate_source_lookup('/s/rule/sum_edges')
     #demonstrate_source_lookup('/s/wordnet/3.0')
 
-    #demonstrate_concepts_tuples_by_relations()
-    demonstrate_relations_tuples_by_concepts()
+    demonstrate_concepts_tuples_by_relations()
+    #demonstrate_relations_tuples_by_concepts()
     #demonstrate_path_existence_check()
 
 if __name__ == '__main__':

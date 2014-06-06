@@ -118,7 +118,7 @@ class Path:
                 if print_where_breaks == True:
                     print 'Assertion breaking the path: [ %s --> (%s) --> %s) ]' % (
                         assertion.start, assertion.relation, assertion.end)
-                    return False
+                return False
         return True
 
 
